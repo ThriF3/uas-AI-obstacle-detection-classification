@@ -7,8 +7,8 @@ from keras.models import load_model
 import sys
 import time
 
-MODEL_PATH = Path("saved_models") / "cifar10_ResNet  20v  1_model.200.keras"
-TRAIN_ANN = Path("dashcam 2.v1i.coco") / "train" / "_annotations.coco.json"
+MODEL_PATH = Path("resnet-models-single-label") / "resnet_single_label.keras"
+TRAIN_ANN = Path("anotasi") / "_annotations.coco.json"
 IMG_SIZE = (32, 32)  # model input size
 
 def load_label_encoder(train_ann_path):
