@@ -7,8 +7,10 @@ from sklearn.preprocessing import LabelEncoder
 from keras.models import load_model
 import matplotlib.pyplot as plt
 
-MODEL_PATH = Path("saved_models") / "cifar10_ResNet  20v  1_model.200.keras"
-TRAIN_ANN = Path("dashcam 2.v1i.coco") / "train" / "_annotations.coco.json"
+MODEL_PATH = Path("resnet-models-single-label") / "resnet_single_label.keras"
+DATASET_DIR = Path("../dashcam 2.v1i.coco")
+VALID_ANN = DATASET_DIR / "valid" / "_annotations.coco.json"
+TRAIN_ANN = DATASET_DIR / "train" / "_annotations.coco.json"
 IMG_SIZE = (32, 32)
 
 def load_label_encoder(train_ann_path):

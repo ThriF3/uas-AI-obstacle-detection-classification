@@ -8,8 +8,8 @@ from sklearn.metrics import classification_report, accuracy_score, confusion_mat
 from keras.models import load_model
 
 # config
-MODEL_PATH = Path("saved_models") / "cifar10_ResNet  20v  1_model.200.keras"
-DATASET_DIR = Path("dashcam 2.v1i.coco")
+MODEL_PATH = Path("resnet-models-single-label") / "resnet_single_label.keras"
+DATASET_DIR = Path("../dashcam 2.v1i.coco")
 VALID_ANN = DATASET_DIR / "valid" / "_annotations.coco.json"
 TRAIN_ANN = DATASET_DIR / "train" / "_annotations.coco.json"
 IMG_SIZE = (32, 32)
@@ -104,3 +104,35 @@ out_dir.mkdir(parents=True, exist_ok=True)
 np.save(out_dir / "y_true.npy", y_true)
 np.save(out_dir / "y_pred.npy", y_pred)
 print("Predictions saved to", out_dir)
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# ---------------------------------------------------------
+# Add this to the end of your script to plot the matrix
+# ---------------------------------------------------------
+
+# 1. Compute the confusion matrix
+cm = confusion_matrix(y_true, y_pred)
+
+# 2. Setup the plot
+plt.figure(figsize=(12, 10))
+sns.heatmap(cm, 
+            annot=True,       # Show numbers in cells
+            fmt='d',          # distinct integer format
+            cmap='Blues',     # Blue color scheme
+            xticklabels=label_encoder.classes_, 
+            yticklabels=label_encoder.classes_)
+
+plt.title('Confusion Matrix')
+plt.ylabel('True Label')
+plt.xlabel('Predicted Label')
+plt.xticks(rotation=45)       # Rotate x labels if they overlap
+plt.tight_layout()
+
+# 3. Save and Show
+plot_path = out_dir / "confusion_matrix.png"
+plt.savefig(plot_path)
+print(f"Confusion matrix plot saved to: {plot_path}")
+
+plt.show()
